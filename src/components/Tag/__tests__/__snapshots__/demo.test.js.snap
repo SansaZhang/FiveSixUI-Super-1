@@ -1,0 +1,27 @@
+exports[`test Tag demo 1`] = `
+<div
+  className="wl-tag"
+  data-value={1}
+  onClick={[Function]}>
+  <span
+    className="wl-tag-text">
+    子元素
+  </span>
+  <span
+    className="wl-tag-close"
+    onClick={[Function]} />
+</div>
+`;
+
+exports[`test Tag demo 2`] = `
+<div
+  className="wl-tag wl-tag-selected"
+  data-value={1000}
+  onClick={[Function]}>
+  <span
+    className="wl-tag-text">
+    label
+  </span>
+  
+</div>
+`;
