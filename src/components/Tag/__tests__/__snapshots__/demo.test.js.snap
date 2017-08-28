@@ -7,8 +7,8 @@ exports[`test Tag demo 1`] = `
     className="wl-tag-text">
     子元素
   </span>
-  <span
-    className="wl-tag-close"
+  <i
+    className="anticon anticon-cross"
     onClick={[Function]} />
 </div>
 `;

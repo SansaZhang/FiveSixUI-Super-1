@@ -1,54 +1,33 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Tag from '../index.tsx';
+import Tag from '..';
 
 describe('Tag', () => {
     // 基础测试
-    it('Test children', () => {
+    it('Test UI', () => {
         const wrapper = shallow(
-            <Tag value={1}>子元素</Tag>
+            <Tag value={1} selected={ true } >子元素</Tag>
         );
         expect(wrapper.find('.wl-tag-text').text()).toBe('子元素');
-        expect(wrapper.find('.wl-tag-close')).toHaveLength(1);
-        expect(wrapper.find('.wl-tag-selected')).toHaveLength(0);
-
-    });
-
-    it('Test prop: selected = true', () => {
-        const wrapper = shallow(
-            <Tag selected={ true } value={1}>子元素</Tag>
-        );
         expect(wrapper.find('.wl-tag-selected')).toHaveLength(1);
+        expect(wrapper.find('Icon')).toHaveLength(1);
     });
-
+    
     it('Test prop: onClick', () => {
         const onTagClick = jest.fn();
+        const value = 1000;
         const wrapper = shallow(
-            <Tag onClick={ onTagClick } value={1}>子元素</Tag>
+            <Tag onClick={ onTagClick } value={value}>子元素</Tag>
         );
         wrapper.find('.wl-tag').simulate('click');
         expect(onTagClick).toHaveBeenCalledTimes(1);
-    });
-
-    it('Test prop: closable = false', () => {
-        const wrapper = shallow(
-            <Tag closable={ false } value={1}>子元素</Tag>
-        );
-        expect(wrapper.find('.wl-tag-close')).toHaveLength(0);
-    });
-
-
-    it('Test prop: closable not defined(equal true)', () => {
-        const wrapper = shallow(
-            <Tag value={1}>子元素</Tag>
-        );
-        expect(wrapper.find('.wl-tag-close')).toHaveLength(1);
+        expect(onTagClick).toHaveBeenCalledWith(value,true);
     });
 
     it('Test prop: onClose', () => {
         const onTagClose = jest.fn();
         const value = 1000;
-        const wrapper = shallow(
+        const wrapper = mount(
             <Tag
                 onClose={ onTagClose }
                 value={ value }
@@ -56,9 +35,8 @@ describe('Tag', () => {
                 子元素
             </Tag>
         );
-        wrapper.find('.wl-tag-close').simulate('click');
+        wrapper.find('Icon').simulate('click');
         expect(onTagClose).toHaveBeenCalledTimes(1);
-        expect(onTagClose).toHaveBeenCalledWith(value);
     });
 
     //实际引用
@@ -80,8 +58,8 @@ describe('Tag', () => {
         wrapper.find('.wl-tag').simulate('click');
         expect(onClickTag).toHaveBeenCalledTimes(1);
 
-        expect(wrapper.find('.wl-tag-close')).toHaveLength(1);
-        wrapper.find('.wl-tag-close').simulate('click');
+        expect(wrapper.find('Icon')).toHaveLength(1);
+        wrapper.find('Icon').simulate('click');
         expect(onCloseTag).toHaveBeenCalledTimes(1);
         
         expect(wrapper.props().value).toEqual(key);
@@ -108,7 +86,7 @@ describe('Tag', () => {
 
         expect(onTagClick).toHaveBeenCalledTimes(1);
         expect(wrapper.props().value).toEqual(key);
-        expect(wrapper.find('.wl-tag-close')).toHaveLength(0);
+        expect(wrapper.find('.wl-tag-closed')).toHaveLength(0);
 
         expect(wrapper.find('.wl-tag-selected')).toHaveLength(1);
         wrapper.setProps({selected: false});

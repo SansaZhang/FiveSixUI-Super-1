@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Menu from './components/Menu/index.tsx';
+import Tag from './components/Tag/index.tsx';
 import './App.css';
 import './components/Menu/style/index.less';
 
@@ -16,6 +17,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Tag value="tag1" closable={true} selected={true}>tag1</Tag>
+        <Tag value="tag1" closable={false}><a>tag-a</a></Tag>
         <div style={{width:250}}>
           
           <Menu selectedKeys={['item3']} defaultOpenKeys={['subMenu']}>
@@ -51,7 +54,6 @@ class App extends Component {
           </Menu>
 
         </div>
-       
       </div>
     );
   }

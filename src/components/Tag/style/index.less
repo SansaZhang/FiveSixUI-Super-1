@@ -18,31 +18,12 @@
         color: #666;
     }
 
-    &-close {
-        display:inline-block; 
-        width:12px; 
-        height:2px; 
-        background:#f00; 
-        font-size:0; 
-        line-height:0;
-        vertical-align:middle;
-        margin-top: -2px;
-        margin-left: 5px;
-        cursor: pointer;
-        -webkit-transform: rotate(45deg);
+    &-closed {
+        display: none;
     }
 
-    &-close:after { 
-        content:'.'; 
-        display:block; 
-        width:12px; 
-        height:2px; 
-        background:#f00;
-        -webkit-transform: rotate(-90deg);
+    &-selected{
+        background: #FF9EAE;
+        border: 1px solid #999;
     }
-}
-
-.@{tag-prefix-cls}-selected {
-    background: #FF9EAE;
-    border: 1px solid #999;
 }

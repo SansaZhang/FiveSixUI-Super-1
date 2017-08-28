@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import Icon from '../Icon';
+import './style/index.less';
 
 
 export interface TagProps {
@@ -13,6 +15,8 @@ export interface TagProps {
   onClick?:Function;
   /** 关闭时的回调 */
   onClose?: Function;
+  className?: string;
+  children?: any;
 }
 
 export default class Tag extends React.Component<TagProps, any> {
@@ -30,6 +34,14 @@ export default class Tag extends React.Component<TagProps, any> {
     selected: PropTypes.bool,
     closable: PropTypes.bool,
   };
+  
+  constructor(props: TagProps) {
+    super(props);
+
+    this.state = {
+      closed: false,
+    };
+  }
 
   handlerClick = (e,value) => {
     e && e.stopPropagation();
@@ -37,26 +49,27 @@ export default class Tag extends React.Component<TagProps, any> {
     onClick && onClick(value, !selected);
   }
 
-  handlerClose = (e,value) => {
+  handlerClose = (e: React.MouseEvent<HTMLElement>) => {
     e && e.stopPropagation();
     const { onClose } = this.props;
-    onClose && onClose(value);
+    onClose && onClose(e);
+    this.setState({closed: true});
   }
 
   render() {
-    const {prefixCls, value, selected, closable, className, children,...other} = this.props;
-    const closeIcon = closable ? <span className={`${prefixCls}-close`} onClick={e => this.handlerClose(e, value)} /> : '';
-    const classString = classNames({
-      [prefixCls]: true,
+    const { closed } = this.state;
+    const {prefixCls, value, selected, closable, className, children,onClose,...otherProps} = this.props;
+    const closeIcon: any = closable ? <Icon type="cross" onClick={this.handlerClose} /> : '';
+    const classString = classNames(prefixCls, className, {
       [`${prefixCls}-selected`]: selected,
-      [className]: !!className
+      [`${prefixCls}-closed`]: closed
     });
     return (
        <div 
         data-value={value}
+        {...otherProps}
         className={classString}
         onClick={e => this.handlerClick(e, value)}
-        {...other}
       >
         <span className={`${prefixCls}-text`}>{children}</span>
         {closeIcon}

@@ -1,0 +1,4 @@
+exports[`test Tag demo 1`] = `
+<i
+  className="anticon anticon-cross" />
+`;
